@@ -1,57 +1,59 @@
-var readlineSync = require("readline-sync")
-var userName = readlineSync.question("Please enter your name ")
-console.log("Welcome " + userName + " to DO YOU KNOW Noor!")
-var score = 0
-function play(question, answer) {
- var userAnswer = readlineSync.question(question)
-  userAnswer = userAnswer.toLowerCase()
-  answer = answer.toLowerCase()
-  
-  if (userAnswer === answer)
-  { 
-    console.log("You are right!")
-    score = score + 1
-            } else {
-    console.log("You are wrong!")
-    score = score - 1
+var readlineSync = require("readline-sync");
+var userName = readlineSync.question("Please enter your name: ");
+console.log("Welcome " + userName + " to the Superhero Quiz!");
+var score = 0;
+function playMCQ(question, options, correctAnswer) {
+  console.log(question);
+  for (var i = 0; i < options.length; i++) {
+    console.log((i + 1) + ". " + options[i]);
   }
-  console.log("Your score is: " + score)
-}
-var questionList = [
-  {
-    question: "What is my full name? ",
-    answer: "MOHAMMED NOOR AMAN"
-  },
-  {
-    question: "Which college did i pursue my engineering degree from? ",
-    answer: "KSIT"
-  },
-  {
-    question: "What is my favourite colour? ",
-    answer: "Red"
-  },
-  {
-    question: "Which city do i live in? ",
-    answer: "Bangalore"
-  },
-  {
-    question: "What was my usn in my B.E? ",
-    answer: "1KS19CS053"
-  },
-  {
-    question: "Who was my crush? ",
-    answer: "Aakriti"
-  },
-  {
-    question: "Which bike do i have? ",
-    answer: "Splendor"
-  },
-  {
-    question: "Who is my favourite actor? ",
-    answer: "Tiger Shroff"
+
+  var userAnswer = parseInt(readlineSync.question("Your answer : "));
+  if (userAnswer === correctAnswer) {
+    console.log("You are right!");
+    score++;
+  } else {
+    console.log("You are wrong!");
+    score--;
   }
-]
-for (var i=0;i<questionList.length;i++) {
-  var answerList = questionList[i]
-  play(answerList.question,answerList.answer)
+  console.log("Your current score is: " + score);
 }
+
+var superheroQuestions = [
+  {
+    question: "Who is the alter ego of Batman?",
+    options: ["Bruce Wayne", "Clark Kent", "Peter Parker", "Tony Stark"],
+    correctAnswer: 1 
+  },
+  {
+    question: "Which superhero has the ability to shoot spider-webs from his wrists?",
+    options: ["Superman", "Spider-Man", "The Flash", "Wonder Woman"],
+    correctAnswer: 2 
+  },
+  {
+    question: "Which superhero is also known as the Man of Steel?",
+    options: ["Iron Man", "Batman", "Superman", "Captain America"],
+    correctAnswer: 3 
+  },
+  {
+    question: "What is the name of the hammer wielded by Thor?",
+    options: ["Stormbreaker", "Gungnir", "Excalibur", "Mjolnir"],
+    correctAnswer: 4 
+  },
+  {
+    question: "Which superhero is known for his fast running abilities and is a member of the Flash family?",
+    options: ["Black Panther", "Spider-Man", "The Flash", "Green Arrow"],
+    correctAnswer: 3 
+  },
+  {
+    question: "What is the real name of the superhero known as Black Widow?",
+    options: ["Natasha Romanoff", "Diana Prince", "Carol Danvers", "Barbara Gordon"],
+    correctAnswer: 1 
+  },
+];
+for (var i = 0; i < superheroQuestions.length; i++) {
+  var questionObj = superheroQuestions[i];
+  playMCQ(questionObj.question, questionObj.options, questionObj.correctAnswer);
+}
+console.log("Thank you for playing! ")
+console.log("Your final score is: " + score);
